@@ -1,3 +1,4 @@
+def branchName = env.BRANCH_NAME
 pipeline {
   agent any
   stages {
@@ -16,7 +17,6 @@ pipeline {
     }
 
     stage('package') {
-      def branchName = env.BRANCH_NAME
       if(branchName == "master") {
           parallel {
         stage('package') {
