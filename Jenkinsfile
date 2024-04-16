@@ -16,9 +16,10 @@ pipeline {
     }
 
     stage('package') {
+      steps {
       def branchName = sh( returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD' ).trim()
       if(branchName == "master") {
-          parallel {
+        parallel {
         stage('package') {
           steps {
             echo 'generating artifacts....'
@@ -33,6 +34,7 @@ pipeline {
           }
         }
 
+      }
       }
       }
       
