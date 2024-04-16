@@ -1,4 +1,3 @@
-def branchName = env.BRANCH_NAME
 pipeline {
   agent any
   stages {
@@ -17,6 +16,7 @@ pipeline {
     }
 
     stage('package') {
+      def branchName = sh( returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD' ).trim()
       if(branchName == "master") {
           parallel {
         stage('package') {
