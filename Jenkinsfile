@@ -16,7 +16,10 @@ pipeline {
     }
 
     stage('package') {
-      parallel {
+      when {
+        branch "master"
+      }
+        parallel {
         stage('package') {
           steps {
             echo 'generating artifacts....'
@@ -32,6 +35,7 @@ pipeline {
         }
 
       }
+      
     }
 
   }
