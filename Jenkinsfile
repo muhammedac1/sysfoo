@@ -16,7 +16,9 @@ pipeline {
     }
 
     stage('package') {
-      parallel {
+      def branchName = env.BRANCH_NAME
+      if(branchName == "master") {
+          parallel {
         stage('package') {
           steps {
             echo 'generating artifacts....'
@@ -32,6 +34,8 @@ pipeline {
         }
 
       }
+      }
+      
     }
 
   }
