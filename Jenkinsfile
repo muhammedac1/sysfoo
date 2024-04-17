@@ -1,5 +1,10 @@
 pipeline {
-  agent any
+  agent {
+    docker {
+      image 'maven:3.6.3-jdk-11-slim'
+    }
+
+  }
   stages {
     stage('build') {
       steps {
@@ -17,9 +22,9 @@ pipeline {
 
     stage('package') {
       when {
-        branch "master"
+        branch 'master'
       }
-        parallel {
+      parallel {
         stage('package') {
           steps {
             echo 'generating artifacts....'
@@ -28,14 +33,13 @@ pipeline {
           }
         }
 
-        stage('') {
+        stage('error') {
           steps {
             sleep 1
           }
         }
 
       }
-      
     }
 
   }
